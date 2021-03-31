@@ -10,7 +10,7 @@ server.listen(process.env.PORT || 3000);
 
 server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 
-	req.sendStatus(200);
+	res.sendStatus(200);
 	console.log(req.body);
 
 });
