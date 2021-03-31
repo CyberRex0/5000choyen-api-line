@@ -20,7 +20,21 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 	req.body.events.forEach((event) => {
 		if (event.type == 'message' && event.message.type == 'text') {
 			const lns = event.message.text.split('\n');
-			console.log(lns);
+			if (lns.length > 2) {
+				if (lns[0].length > 50 || lns[1].length > 50) {
+					events_processed.push(bot.replyMessage(event.replyToken, {
+						type: 'text',
+						text: 'text is too long.'
+					});
+					return;
+				}
+				const imageurl = 'https://gsapi.cyberrex.ml/image?top=' + encodeURI(lns[0]) + '&bottom=' + encodeURI(lns[1]);
+				events_processed.push(bot.replyMessage(event.replyToken, {
+					type: 'image',
+					originalContentUrl: imageurl,
+					previewImageUrl: imageurl+'&type=jpeg&q=50'
+				});
+			}
 		}
 	});
 
