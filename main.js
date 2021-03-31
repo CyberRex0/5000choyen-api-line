@@ -33,6 +33,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 						type: 'text',
 						text: 'please enter text at least 1 characters per line.'
 					}));
+					return;
 				}
 				const imageurl = 'https://gsapi.cyberrex.ml/image?top=' + encodeURI(lns[0]) + '&bottom=' + encodeURI(lns[1]);
 				events_processed.push(bot.replyMessage(event.replyToken, {
