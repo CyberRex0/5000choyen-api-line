@@ -19,7 +19,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 
 	req.body.events.forEach((event) => {
 		if (event.type == 'message' && event.message.type == 'text') {
-			const lns = event.message.text.split('\n');
+			let lns = event.message.text.split('\n');
 			if (lns.length >= 2) {
 				if (lns[0].length >= 50 || lns[1].length >= 50) {
 					events_processed.push(bot.replyMessage(event.replyToken, {
@@ -28,7 +28,9 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 					}));
 					return;
 				}
-				if (lns[0] == '' || lns[1] == '') {
+				lnschk0 = lns[0].replace(' ','').replace('\u3000','');
+				lnschk1 = lns[1].replace(' ','').replace('\u3000','');
+				if (lnschk0 == '' || lnschk1 == '') {
 					events_processed.push(bot.replyMessage(event.replyToken, {
 						type: 'text',
 						text: 'please enter text at least 1 characters per line.'
