@@ -25,7 +25,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 					events_processed.push(bot.replyMessage(event.replyToken, {
 						type: 'text',
 						text: 'text is too long.'
-					});
+					}));
 					return;
 				}
 				const imageurl = 'https://gsapi.cyberrex.ml/image?top=' + encodeURI(lns[0]) + '&bottom=' + encodeURI(lns[1]);
@@ -33,7 +33,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 					type: 'image',
 					originalContentUrl: imageurl,
 					previewImageUrl: imageurl+'&type=jpeg&q=50'
-				});
+				}));
 			}
 		}
 	});
